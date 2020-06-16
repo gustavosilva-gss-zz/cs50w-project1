@@ -1,0 +1,38 @@
+{% macro filters(filter, submitAutomatically) %}
+    <head>
+        <style>
+            .radio-inline {
+                margin-right: 10px;
+            }
+
+            h5 {
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
+        </style>
+    </head>
+
+    <div class="form-group">   
+        <h5>Filter by:</h5>
+        <label class="radio-inline">
+            <input type="radio" name="searchFilter" value="all" 
+                {% if filter == "all" %} checked {% endif %}
+                {% if submitAutomatically %} onchange="this.form.submit()" {% endif %}> All</input>
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="searchFilter" value="title"
+                {% if filter == "title" %} checked {% endif %}
+                {% if submitAutomatically %} onchange="this.form.submit()" {% endif %}> Title</input>
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="searchFilter" value="author" 
+                {% if filter == "author" %} checked {% endif %}
+                {% if submitAutomatically %} onchange="this.form.submit()" {% endif %}> Author</input>
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="searchFilter" value="isbn" 
+                {% if filter == "isbn" %} checked {% endif %}
+                {% if submitAutomatically %} onchange="this.form.submit()" {% endif %}> ISBN</input>
+        </label>
+    </div>
+{% endmacro %}

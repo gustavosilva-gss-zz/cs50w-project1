@@ -1,0 +1,13 @@
+.navbar-collapse.collapse.in {
+    display: block !important;
+}
+
+body {
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.ignorePadding {
+    margin-left: -1%;
+    margin-right: -1%;
+}

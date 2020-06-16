@@ -1,0 +1,43 @@
+{% extends "template.html" %}
+{% from "macros/filters.html" import filters %}
+
+{% block otherStyle %}
+    <style>
+        #title {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+
+        #searchImg {
+            width: 50%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+    <h4 id="title">Find a book</h4>
+    <img src="static\search_img.png" id="searchImg">
+    <form action="/search" method="get">
+        <div class="input-group">
+            <input type="text" class="form-control" name="search" placeholder="Type the name, ISBN or author">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="submit">
+                  <i class="fa fa-search"></i>
+              </button>
+            </span>
+        </div>
+        {{ filters("all", False) }}
+    </form>
+    {% if get_flashed_messages() %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            {{ get_flashed_messages() | join(" ") }}
+        </div>
+    {% endif %}
+{% endblock %}

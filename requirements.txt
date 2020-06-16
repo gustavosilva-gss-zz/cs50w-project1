@@ -2,3 +2,9 @@ Flask
 Flask-Session
 psycopg2-binary
 SQLAlchemy
+passlib
+wtforms
+flask_wtf
+flask_bootstrap
+email_validator
+requests

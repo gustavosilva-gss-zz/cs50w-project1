@@ -1,0 +1,49 @@
+{% extends "template.html" %}
+{% from "macros/filters.html" import filters %}
+
+{% block otherStyle %}
+    <style>
+        .card {
+            margin: 5px;
+            padding: 0;
+        }
+
+        .card p{
+            margin: 0;
+        }
+
+        .row {
+            margin: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+    {% if not result %}
+        <h3>No results for "{{ search }}", did you type it correctly? Maybe try using another search filter</h3>
+        {% else %}
+            <h3>Results for "{{ search }}"</h3>
+    {% endif %}
+    <form action="/search" method="get">
+        <input type="hidden" name="search" value={{ search }} />
+        {{ filters(searchFilter, True) }}
+    </form>
+    <div class="row d-flex justify-content-center no-gutters">
+        {% for bookInfo in result %}
+        <div class="card col-8 col-sm-5 col-md-3">
+            <div class="card-header">
+                {{ bookInfo["title"] }}
+            </div>
+            <div class="card-body">
+                <p>By: {{ bookInfo["author"] }}</p>
+                <p>Release: {{ bookInfo["year"] }}</p>
+                <p class="text-muted">ISBN: {{ bookInfo["isbn"] }}</p>
+                <br>
+                <a href="/book/{{ bookInfo['isbn'] }}" class="btn btn-primary float-right">See book page</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

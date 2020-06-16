@@ -1,0 +1,87 @@
+{% extends "template.html" %}
+
+{% block otherStyle %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='book_page_style.css') }}">
+{% endblock %}
+
+{% block title %}{{ bookInfo["title"] }}{% endblock %}
+
+{% block content %}
+    <div class="row ignorePadding">
+        <div class="coverHolder">
+            <img class="cover" onerror="this.src='https://static.thenounproject.com/png/140281-200.png'" src="http://covers.openlibrary.org/b/isbn/{{ bookInfo['isbn'] }}-L.jpg?default=false" />
+            <div class="ratingHolderSmall">
+                <div>Rating</div>
+                <div>{{ bookInfo["averageRating"] }}</div>
+            </div>
+        </div>
+        <div class="card bookInfo">
+            <h4 class="card-header">
+                {{ bookInfo["title"] }}
+            </h4>
+            <div class="card-body">
+                <div class="row">
+                    <p>By: {{ bookInfo["author"] }}</p>
+                </div>
+                <div class="row">
+                    <p>Release: {{ bookInfo["year"] }}</p>
+                </div>
+                <div class="row">
+                    <p class="text-muted">ISBN: {{ bookInfo["isbn"] }}</p>
+                </div>
+                <div class="row">
+                    <div class="goodreadsHolder">
+                        <img class="goodreadsLogo" src="{{ url_for('static', filename='goodreads_logo.png') }}">
+                        <div>{{ bookInfo["goodreadsRating"] }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ratingHolderLarge">
+        <div>Rating</div>
+        <div>{{ bookInfo["averageRating"] }}</div>
+    </div>
+    <div class="card userReviewsHolder">
+        <h4 class="card-header">
+            Reviews from users
+        </h4>
+        <div class="card-body">
+            <form action="/book/{{ bookInfo['isbn'] }}" method="post">
+                <input type="hidden" name="bookId" value="{{ bookInfo['id'] }}">
+                <div class="row">
+                    <div class="col-sm-12 col-md-10">
+                        <label>Review</label>
+                        <textarea type="text" class="form-control" name="review" placeholder="Write your review here"></textarea>
+                    </div>
+                    <div class="col-3 col-md-1">
+                        <label>Rating</label>
+                        <input type="number" min="0" max="5" class="form-control" name="rating" placeholder="Rating">
+                    </div>
+                    <div class="submitBtn nopadding d-flex align-items-end">
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+            {% if get_flashed_messages() %}
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    {{ get_flashed_messages() | join(" ") }}
+                </div>
+            {% endif %}
+            {% for review in bookInfo["reviews"] %}
+                <div class="reviewCard card">
+                    <div class="reviewBody card-body">
+                        <div class="row">
+                            <h5>{{ review["username"] }}</h5>
+                            <h5 class="ml-auto justify-content-end">{{ review["rating"] }}</h5>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            {{ review["review"] }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
