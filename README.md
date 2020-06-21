@@ -5,10 +5,10 @@ https://project-one-cs50w.herokuapp.com
 
 ### Registration
 To register, user will need to provide:
-First and last name
-Username
-Email
-Password
+* First and last name
+* Username
+* Email
+* Password
 ##### Password security
 For encription and validation of passwords, this project uses [passlib.hash.sha256_crypt](https://passlib.readthedocs.io/en/stable/lib/passlib.hash.sha256_crypt.html)
 
